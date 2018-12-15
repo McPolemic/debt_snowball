@@ -11,8 +11,6 @@ class AccountsController < ApplicationController
   # GET /accounts/1.json
   def show
     @transactions = @account.transactions
-    @current_balance = @transactions.map(&:amount_cents).sum
-
     @new_transaction = Transaction.new(account: @account)
   end
 
