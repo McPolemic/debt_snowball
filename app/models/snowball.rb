@@ -1,0 +1,2 @@
+class Snowball < ApplicationRecord
+end
