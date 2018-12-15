@@ -28,7 +28,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+        format.html { redirect_to @transaction.account, notice: 'Transaction was successfully created.' }
         format.json { render :show, status: :created, location: @transaction }
       else
         format.html { render :new }
@@ -71,11 +71,12 @@ class TransactionsController < ApplicationController
       @transaction = Transaction.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def transaction_params
       raw_params = params.require(:transaction).permit(:account_id, :date, :description, :amount)
       amount_text = raw_params.delete(:amount)
+
       amount_cents = parse_amount_cents(amount_text)
+
       raw_params.merge(amount_cents: amount_cents)
     end
 end
