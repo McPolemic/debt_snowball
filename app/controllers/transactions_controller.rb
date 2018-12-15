@@ -63,7 +63,10 @@ class TransactionsController < ApplicationController
 
   private
     def parse_amount_cents(amount_text)
-      amount_text.gsub(/[$.,]/, '').to_i
+      amount = amount_text.gsub(/[$,]/, '').to_f
+
+      # Convert to cents
+      (amount * 100).to_i
     end
 
     # Use callbacks to share common setup or constraints between actions.
