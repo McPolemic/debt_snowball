@@ -1,6 +1,6 @@
 class Account < ApplicationRecord
   belongs_to :snowball
-  has_many :transactions
+  has_many :transactions, dependent: :destroy
 
   # Optimization: These three methods (initial_balance, current_balance, and
   # current_balance) could be calculated when transactions are saved and stored
