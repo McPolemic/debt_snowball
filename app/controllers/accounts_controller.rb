@@ -26,7 +26,14 @@ class AccountsController < ApplicationController
   # POST /accounts
   # POST /accounts.json
   def create
+    account_params = new_account_params
+    initial_balance = parse_amount_cents account_params.delete(:initial_balance)
+
     @account = Account.new(account_params)
+    Transaction.create!(account: @account,
+                        date: Date.current,
+                        description: "Initial balance",
+                        amount_cents: initial_balance)
 
     respond_to do |format|
       if @account.save
@@ -43,7 +50,7 @@ class AccountsController < ApplicationController
   # PATCH/PUT /accounts/1.json
   def update
     respond_to do |format|
-      if @account.update(account_params)
+      if @account.update(update_account_params)
         format.html { redirect_to @account, notice: 'Account was successfully updated.' }
         format.json { render :show, status: :ok, location: @account }
       else
@@ -69,8 +76,11 @@ class AccountsController < ApplicationController
       @account = Account.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def account_params
+    def new_account_params
+      params.require(:account).permit(:name, :snowball_id, :interest_rate, :initial_balance)
+    end
+
+    def update_account_params
       params.require(:account).permit(:name, :snowball_id, :interest_rate)
     end
 end

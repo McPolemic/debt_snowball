@@ -21,6 +21,15 @@
     <%= form.number_field :interest_rate, step: 0.001 %>
   </div>
 
+    <div class="field">
+      <%= form.label :initial_balance %>
+      <% if account.new_record? %>
+        <%= form.number_field :initial_balance, step: 0.01, value: '' %>
+      <% else %>
+        <p><%= money account.initial_balance %></p>
+      <% end %>
+    </div>
+
   <div class="field">
     <%= form.label :snowball_id %>
     <%= form.select :snowball_id, Snowball.all.map{ |s| [s.name, s.id] } %>
