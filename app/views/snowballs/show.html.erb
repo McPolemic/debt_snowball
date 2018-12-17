@@ -22,9 +22,9 @@
       <tr>
         <td><%= account.name %></td>
         <td><%= percentage account.interest_rate %></td>
-        <td><%= money account.initial_balance %></td>
-        <td><%= money account.current_balance %></td>
-        <td><%= money account.current_difference %></td>
+        <td style="text-align: right"><%= money account.initial_balance %></td>
+        <td style="text-align: right"><%= money account.current_balance %></td>
+        <td style="text-align: right"><%= money account.current_difference %></td>
         <td><%= link_to 'Show', account %></td>
         <td><%= link_to 'Edit', edit_account_path(account) %></td>
         <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -33,7 +33,7 @@
     <tr>
       <td>Total</td>
       <td></td>
-      <td><%= money @total_balance %></td>
+      <td style="text-align: right"><%= money @total_balance %></td>
       <td colspan="3"></td>
     </tr>
   </tbody>
