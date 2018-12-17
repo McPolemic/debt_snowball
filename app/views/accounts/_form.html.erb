@@ -17,6 +17,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :interest_rate %>
+    <%= form.number_field :interest_rate, step: 0.001 %>
+  </div>
+
+  <div class="field">
     <%= form.label :snowball_id %>
     <%= form.select :snowball_id, Snowball.all.map{ |s| [s.name, s.id] } %>
   </div>
