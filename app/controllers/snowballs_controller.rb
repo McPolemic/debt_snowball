@@ -10,6 +10,7 @@ class SnowballsController < ApplicationController
   # GET /snowballs/1
   # GET /snowballs/1.json
   def show
+    @total_balance = @snowball.accounts.map(&:current_balance).sum
   end
 
   # GET /snowballs/new
