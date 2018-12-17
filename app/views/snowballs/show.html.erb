@@ -19,7 +19,7 @@
     <% @snowball.accounts.each do |account| %>
       <tr>
         <td><%= account.name %></td>
-        <td><%= number_to_percentage account.interest_rate %></td>
+        <td><%= percentage account.interest_rate %></td>
         <td><%= money account.current_balance %></td>
         <td><%= link_to 'Show', account %></td>
         <td><%= link_to 'Edit', edit_account_path(account) %></td>
