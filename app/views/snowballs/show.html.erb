@@ -31,7 +31,7 @@
       <td></td>
       <td class="money"><%= money @total_initial %></td>
       <td class="money"><%= money @total_current %></td>
-      <td class="money"><%= money @total_difference %></td>
+      <td class="money <%= money_color_class @total_difference %>"><%= money @total_difference %></td>
     </tr>
   </tbody>
 </table>
