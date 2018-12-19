@@ -39,7 +39,7 @@
     </thead>
 
     <tbody>
-      <% @transactions.each do |transaction| %>
+      <% @transactions.order(:date).each do |transaction| %>
         <tr>
           <td><%= date transaction.date %></td>
           <td><%= transaction.description %></td>
