@@ -23,7 +23,7 @@
         <td><%= percentage account.interest_rate %></td>
         <td class="money"><%= money account.initial_balance %></td>
         <td class="money"><%= money account.current_balance %></td>
-        <td class="money"><%= money account.current_difference %></td>
+        <td class="money <%= money_color_class account.current_difference %>"><%= money account.current_difference %></td>
       </tr>
     <% end %>
     <tr>
