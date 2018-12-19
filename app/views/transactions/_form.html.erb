@@ -1,4 +1,4 @@
-<%= form_with(model: transaction, local: true) do |form| %>
+<%= form_with(model: transaction, local: true, html: { class: "pure-form" }) do |form| %>
   <% if transaction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <fieldset>
     <%= form.label :account_id %>
     <%= form.select :account_id, Account.all.map{ |a| [a.name, a.id] } %>
-  </div>
+  </fieldset>
 
-  <div class="field">
+  <fieldset>
     <%= form.label :date %>
     <%= form.date_field :date, value: Date.today %>
-  </div>
+  </fieldset>
 
-  <div class="field">
+  <fieldset>
     <%= form.label :description %>
     <%= form.text_field :description %>
-  </div>
+  </fieldset>
 
-  <div class="field">
+  <fieldset>
     <%= form.label :amount %>
     <%= form.text_field :amount, value: money(@transaction.amount_cents) %>
-  </div>
+  </fieldset>
 
-  <div class="actions">
+  <fieldset>
     <%= form.submit %>
-  </div>
+  </fieldset>
 <% end %>
