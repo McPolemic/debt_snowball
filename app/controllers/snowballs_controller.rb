@@ -10,7 +10,9 @@ class SnowballsController < ApplicationController
   # GET /snowballs/1
   # GET /snowballs/1.json
   def show
-    @total_balance = @snowball.accounts.map(&:current_balance).sum
+    @total_initial = @snowball.accounts.map(&:initial_balance).sum
+    @total_current = @snowball.accounts.map(&:current_balance).sum
+    @total_difference = @total_current - @total_initial
   end
 
   # GET /snowballs/new

@@ -5,7 +5,7 @@
   <%= @snowball.name %>
 </p>
 
-<table>
+<table class="pure-table pure-table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -13,28 +13,25 @@
       <th>Initial Balance</th>
       <th>Current Balance</th>
       <th>Difference</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @snowball.accounts.each do |account| %>
       <tr>
-        <td><%= account.name %></td>
+        <td><%= link_to account.name, account %></td>
         <td><%= percentage account.interest_rate %></td>
-        <td style="text-align: right"><%= money account.initial_balance %></td>
-        <td style="text-align: right"><%= money account.current_balance %></td>
-        <td style="text-align: right"><%= money account.current_difference %></td>
-        <td><%= link_to 'Show', account %></td>
-        <td><%= link_to 'Edit', edit_account_path(account) %></td>
-        <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="money"><%= money account.initial_balance %></td>
+        <td class="money"><%= money account.current_balance %></td>
+        <td class="money"><%= money account.current_difference %></td>
       </tr>
     <% end %>
     <tr>
       <td>Total</td>
       <td></td>
-      <td style="text-align: right"><%= money @total_balance %></td>
-      <td colspan="3"></td>
+      <td class="money"><%= money @total_initial %></td>
+      <td class="money"><%= money @total_current %></td>
+      <td class="money"><%= money @total_difference %></td>
     </tr>
   </tbody>
 </table>
@@ -43,4 +40,5 @@
 
 <%= link_to 'New Account', new_account_path %> |
 <%= link_to 'Edit', edit_snowball_path(@snowball) %> |
+<%= link_to 'Delete', @snowball, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', snowballs_path %>

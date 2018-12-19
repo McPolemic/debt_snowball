@@ -28,12 +28,12 @@
     </div>
   <% end %>
 
-  <table>
+  <table class="pure-table pure-table-striped">
     <thead>
       <tr>
         <th>Date</th>
         <th>Description</th>
-        <th>Amount</th>
+        <th class="money">Amount</th>
         <th colspan="2"></th>
       </tr>
     </thead>
@@ -41,9 +41,9 @@
     <tbody>
       <% @transactions.each do |transaction| %>
         <tr>
-          <td><%= transaction.date %></td>
+          <td><%= date transaction.date %></td>
           <td><%= transaction.description %></td>
-          <td><%= money transaction.amount_cents %></td>
+          <td class="money"><%= money transaction.amount_cents %></td>
           <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
           <td><%= link_to 'Delete', transaction, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
@@ -52,12 +52,12 @@
         <td><%= form.date_field :date, value: Date.today %></td>
         <td><%= form.text_field :description %></td>
         <td><%= form.text_field :amount, value: money(@new_transaction.amount_cents) %></td>
-        <td colspan="2"><%= form.submit %></td>
+        <td colspan="2"><%= form.submit "Create" %></td>
       </tr>
       <tr>
         <td></td>
         <td>Total</td>
-        <td><%= money @account.current_balance %></td>
+        <td class="money"><%= money @account.current_balance %></td>
         <td colspan="2"></td>
       </tr>
     </tbody>
@@ -65,5 +65,6 @@
   <%= form.hidden_field :account_id, value: @account.id %>
 <% end %>
 
-<%= link_to 'Edit Account', edit_account_path(@account) %> |
+<%= link_to 'Edit', edit_account_path(@account) %> |
+<%= link_to 'Delete', @account, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Account List', snowball_path(@account.snowball) %>
