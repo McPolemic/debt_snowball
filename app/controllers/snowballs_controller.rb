@@ -58,6 +58,11 @@ class SnowballsController < ApplicationController
   end
 
   def snowball_params
-    params.require(:snowball).permit(:name)
+    raw_params = params.require(:snowball).permit(:name, :monthly_amount)
+    monthly_amount_text = raw_params.delete(:monthly_amount)
+
+    monthly_amount_cents = parse_amount_cents(monthly_amount_text)
+
+    raw_params.merge(monthly_amount_cents: monthly_amount_cents)
   end
 end

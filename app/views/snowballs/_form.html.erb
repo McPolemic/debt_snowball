@@ -17,6 +17,11 @@
   </fieldset>
 
   <fieldset>
+    <%= form.label :monthly_amount_cents %>
+    <%= form.text_field :monthly_amount, value: money(@snowball.monthly_amount_cents) %>
+  </fieldset>
+
+  <fieldset>
     <%= form.submit %>
   </fieldset>
 <% end %>
