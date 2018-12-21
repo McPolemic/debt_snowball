@@ -15,7 +15,7 @@
     <strong>You're all paid up!</strong>
   <% else %>
     If you pay <strong><%= money @snowball.monthly_amount_cents %></strong> every month,
-    you'll be paid off in <strong><%= remaining_duration(@total_current.to_i.abs, @snowball.monthly_amount_cents) %></strong>.
+    you'll be paid off in <strong><%= remaining_duration(@total_current, @snowball.monthly_amount_cents) %></strong>.
   <% end %>
 </p>
 

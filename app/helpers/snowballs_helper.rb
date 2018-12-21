@@ -10,6 +10,9 @@ module SnowballsHelper
   end
 
   def remaining_duration(total_amount, monthly_amount)
+    return "" unless total_amount.present? && monthly_amount.present?
+
+    total_amount = total_amount.to_i.abs
     number_of_months = total_amount / monthly_amount
     remaining = total_amount % monthly_amount
 
