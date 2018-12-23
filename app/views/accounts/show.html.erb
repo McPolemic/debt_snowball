@@ -65,6 +65,6 @@
   <%= form.hidden_field :account_id, value: @account.id %>
 <% end %>
 
-<%= link_to 'Edit', edit_account_path(@account) %> |
-<%= link_to 'Delete', @account, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Edit Account', edit_account_path(@account) %> |
+<%= link_to 'Delete Account', @account, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Account List', snowball_path(@account.snowball) %>
