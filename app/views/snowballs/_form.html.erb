@@ -1,4 +1,4 @@
-<%= form_with(model: snowball, local: true, html: { class: "pure-form" }) do |form| %>
+<%= form_with(model: snowball, local: true) do |form| %>
   <% if snowball.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(snowball.errors.count, "error") %> prohibited this snowball from being saved:</h2>
@@ -11,17 +11,17 @@
     </div>
   <% end %>
 
-  <fieldset>
+  <fieldset class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </fieldset>
 
-  <fieldset>
+  <fieldset class="form-group">
     <%= form.label :monthly_amount_cents %>
-    <%= form.text_field :monthly_amount, value: money(@snowball.monthly_amount_cents) %>
+    <%= form.text_field :monthly_amount, value: money(@snowball.monthly_amount_cents), class: "form-control" %>
   </fieldset>
 
-  <fieldset>
+  <fieldset class="form-group">
     <%= form.submit %>
   </fieldset>
 <% end %>

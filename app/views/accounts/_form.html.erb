@@ -1,4 +1,4 @@
-<%= form_with(model: account, local: true, html: { class: "pure-form" }) do |form| %>
+<%= form_with(model: account, local: true) do |form| %>
   <% if account.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(account.errors.count, "error") %> prohibited this account from being saved:</h2>
@@ -11,29 +11,29 @@
     </div>
   <% end %>
 
-  <fieldset>
+  <fieldset class="form-group">
     <%= form.label :snowball_id %>
-    <%= form.select :snowball_id, Snowball.all.map{ |s| [s.name, s.id] } %>
+    <%= form.select :snowball_id, Snowball.all.map{ |s| [s.name, s.id] }, {}, { class: "custom-select" } %>
   </fieldset>
 
-  <fieldset>
+  <fieldset class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </fieldset>
 
-  <fieldset>
+  <fieldset class="form-group">
     <%= form.label :interest_rate %>
-    <%= form.number_field :interest_rate, step: 0.001 %>
+    <%= form.number_field :interest_rate, step: 0.001, class: "form-control" %>
   </fieldset>
 
   <% if account.new_record? %>
-    <fieldset>
+    <fieldset class="form-group">
       <%= form.label :initial_balance %>
-      <%= form.number_field :initial_balance, step: 0.01, value: '' %>
+      <%= form.number_field :initial_balance, step: 0.01, value: '', class: "form-control" %>
     </fieldset>
   <% end %>
 
-  <fieldset>
+  <fieldset class="form-group">
     <%= form.submit %>
   </fieldset>
 <% end %>
