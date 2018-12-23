@@ -27,20 +27,22 @@
   </fieldset>
 
   <fieldset class="form-group">
-    <%= form.label :amount %>
-    <%= form.text_field :amount, value: money((@transaction.amount_cents || 0).abs), class: "form-control" %>
-  </fieldset>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <%= form.label(:amount_type, "Payment", class: "btn btn-secondary #{"active" if payment?(@transaction.amount_cents)}") do %>
+        Payment
+        <%= form.radio_button :amount_type, :payment, checked: payment?(@transaction.amount_cents) %>
+      <% end %>
 
-  <fieldset class="form-group">
-    <div class="form-check form-check-inline">
-      <%= form.radio_button :charge_indicator, :payment, checked: payment?(@transaction.amount_cents), class: "form-check-input" %>
-      <%= form.label :charge_indicator, value: :payment, class: "form-check-label" %>
+      <%= form.label(:amount_type, "Charge", class: "btn btn-secondary #{"active" if charge?(@transaction.amount_cents)}") do %>
+        Charge
+        <%= form.radio_button :amount_type, :charge, checked: charge?(@transaction.amount_cents) %>
+      <% end %>
     </div>
 
-    <div class="form-check form-check-inline">
-      <%= form.radio_button :charge_indicator, :charge, checked: charge?(@transaction.amount_cents), class: "form-check-input" %>
-      <%= form.label :charge_indicator, value: :charge, class: "form-check-label" %>
-    </div>
+    <p>OR</p>
+
+    <%= form.label :new_balance %>
+    <%= form.number_field :new_balance, step: 0.01 %>
   </fieldset>
 
   <fieldset class="form-group">

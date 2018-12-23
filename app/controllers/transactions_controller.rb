@@ -2,7 +2,9 @@ class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:edit, :update, :destroy]
 
   def new
-    @transaction = Transaction.new
+    params.require(:account_id)
+
+    @transaction = Transaction.new(account_id: @account_id)
   end
 
   def edit
