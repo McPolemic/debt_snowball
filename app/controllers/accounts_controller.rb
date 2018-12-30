@@ -12,17 +12,24 @@ class AccountsController < ApplicationController
   def edit
   end
 
+  # We always want to return a positive amount here, as we consider positive
+  # amounts debts.
+  def parse_amount_owed text_amount
+    (parse_amount_cents text_amount).abs
+  end
+
   def create
     account_params = new_account_params
-    initial_balance = parse_amount_cents account_params.delete(:initial_balance)
+    amount_owed = parse_amount_owed account_params.delete(:amount_owed)
     minimum_payment = parse_amount_cents account_params.delete(:minimum_payment)
+
+    account_params.merge!(minimum_payment_amount_cents: minimum_payment)
 
     @account = Account.new(account_params)
     Transaction.create!(account: @account,
                         date: Date.current,
                         description: "Initial balance",
-                        amount_cents: initial_balance,
-                        minimum_payment_amount_cents: minimum_payment)
+                        amount_cents: amount_owed)
 
     respond_to do |format|
       if @account.save
@@ -68,7 +75,7 @@ class AccountsController < ApplicationController
   end
 
   def new_account_params
-    params.require(:account).permit(:name, :snowball_id, :interest_rate, :initial_balance, :minimum_payment)
+    params.require(:account).permit(:name, :snowball_id, :interest_rate, :amount_owed, :minimum_payment)
   end
 
   def update_account_params

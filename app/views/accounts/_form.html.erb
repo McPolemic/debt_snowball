@@ -28,8 +28,8 @@
 
   <% if account.new_record? %>
     <fieldset class="form-group">
-      <%= form.label :initial_balance %>
-      <%= form.number_field :initial_balance, step: 0.01, value: '', class: "form-control" %>
+      <%= form.label :amount_owed %>
+      <%= form.number_field :amount_owed, step: 0.01, value: '', class: "form-control" %>
     </fieldset>
   <% end %>
 

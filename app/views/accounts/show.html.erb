@@ -49,6 +49,7 @@
   </tbody>
 </table>
 
+<%= link_to 'New Transaction', new_transaction_path(@account) %> |
 <%= link_to 'Edit Account', edit_account_path(@account) %> |
 <%= link_to 'Delete Account', @account, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Account List', snowball_path(@account.snowball) %>

@@ -32,6 +32,18 @@
   </fieldset>
 
   <fieldset class="form-group">
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :charge_indicator, :payment, checked: payment?(@transaction.amount_cents), class: "form-check-input" %>
+      <%= form.label :charge_indicator, value: :payment, class: "form-check-label" %>
+    </div>
+
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :charge_indicator, :charges, checked: charge?(@transaction.amount_cents), class: "form-check-input" %>
+      <%= form.label :charge_indicator, value: :charges, class: "form-check-label" %>
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group">
     <%= form.submit %>
   </fieldset>
 <% end %>
