@@ -3,7 +3,6 @@ class AccountsController < ApplicationController
 
   def show
     @transactions = @account.transactions
-    @new_transaction = Transaction.new(account: @account)
   end
 
   def new
