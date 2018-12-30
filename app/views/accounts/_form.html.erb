@@ -34,6 +34,11 @@
   <% end %>
 
   <fieldset class="form-group">
+    <%= form.label :minimum_payment %>
+    <%= form.text_field :minimum_payment, value: money(@account.minimum_payment_amount_cents), class: "form-control" %>
+  </fieldset>
+
+  <fieldset class="form-group">
     <%= form.submit %>
   </fieldset>
 <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_20_011226) do
+ActiveRecord::Schema.define(version: 2018_12_26_082812) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2018_12_20_011226) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "interest_rate"
+    t.integer "minimum_payment_amount_cents"
     t.index ["snowball_id"], name: "index_accounts_on_snowball_id"
   end
 

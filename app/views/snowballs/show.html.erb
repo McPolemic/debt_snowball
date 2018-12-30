@@ -26,6 +26,7 @@
     <tr>
       <th>Name</th>
       <th>Interest Rate</th>
+      <th>Minimum Payment</th>
       <th>Initial Balance</th>
       <th>Current Balance</th>
       <th>Difference</th>
@@ -37,14 +38,14 @@
       <tr>
         <td><%= link_to account.name, account %></td>
         <td><%= percentage account.interest_rate %></td>
+        <td class="money"><%= money account.minimum_payment_amount_cents %></td>
         <td class="money"><%= money account.initial_balance %></td>
         <td class="money"><%= money account.current_balance %></td>
         <td class="money <%= money_color_class account.current_difference %>"><%= money account.current_difference %></td>
       </tr>
     <% end %>
     <tr>
-      <td>Total</td>
-      <td></td>
+      <td colspan="3">Total</td>
       <td class="money"><%= money @total_initial %></td>
       <td class="money"><%= money @total_current %></td>
       <td class="money <%= money_color_class @total_difference %>"><%= money @total_difference %></td>

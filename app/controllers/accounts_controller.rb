@@ -16,12 +16,14 @@ class AccountsController < ApplicationController
   def create
     account_params = new_account_params
     initial_balance = parse_amount_cents account_params.delete(:initial_balance)
+    minimum_payment = parse_amount_cents account_params.delete(:minimum_payment)
 
     @account = Account.new(account_params)
     Transaction.create!(account: @account,
                         date: Date.current,
                         description: "Initial balance",
-                        amount_cents: initial_balance)
+                        amount_cents: initial_balance,
+                        minimum_payment_amount_cents: minimum_payment)
 
     respond_to do |format|
       if @account.save
@@ -35,8 +37,13 @@ class AccountsController < ApplicationController
   end
 
   def update
+    account_params = update_account_params
+    minimum_payment = parse_amount_cents account_params.delete(:minimum_payment)
+
+    account_params.merge!(minimum_payment_amount_cents: minimum_payment)
+
     respond_to do |format|
-      if @account.update(update_account_params)
+      if @account.update(account_params)
         format.html { redirect_to @account, notice: 'Account was successfully updated.' }
         format.json { render :show, status: :ok, location: @account }
       else
@@ -62,10 +69,10 @@ class AccountsController < ApplicationController
   end
 
   def new_account_params
-    params.require(:account).permit(:name, :snowball_id, :interest_rate, :initial_balance)
+    params.require(:account).permit(:name, :snowball_id, :interest_rate, :initial_balance, :minimum_payment)
   end
 
   def update_account_params
-    params.require(:account).permit(:name, :snowball_id, :interest_rate)
+    params.require(:account).permit(:name, :snowball_id, :interest_rate, :minimum_payment)
   end
 end
