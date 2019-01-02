@@ -1,9 +1,9 @@
 module SnowballsHelper
   def money_color_class(amount)
-    if amount >  0
-      'money-positive'
+    if amount > 0
+      'money-saved'
     elsif amount < 0
-      'money-negative'
+      'money-spent'
     else
       ''
     end
