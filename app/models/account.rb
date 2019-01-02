@@ -13,8 +13,10 @@ class Account < ApplicationRecord
     transactions.map(&:amount_cents).sum
   end
 
+  # Since we're paying things down, we're going to show a positive difference
+  # as paid down and a negative difference as additional charges.
   def current_difference
-    current_balance - initial_balance
+    -(current_balance - initial_balance)
   end
 
   def to_s

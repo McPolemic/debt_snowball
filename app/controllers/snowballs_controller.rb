@@ -8,7 +8,10 @@ class SnowballsController < ApplicationController
   def show
     @total_initial = @snowball.accounts.map(&:initial_balance).sum
     @total_current = @snowball.accounts.map(&:current_balance).sum
-    @total_difference = @total_current - @total_initial
+
+    # Since we're paying things down, we're going to show a positive difference
+    # as paid down and a negative difference as additional charges.
+    @total_difference = -(@total_current - @total_initial)
   end
 
   def new
