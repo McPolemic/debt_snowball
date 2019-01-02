@@ -57,7 +57,7 @@ class TransactionsController < ApplicationController
     amount_cents = case charge_indicator
                    when "payment"
                      -amount_cents
-                   when "charges"
+                   when "charge"
                      amount_cents
                    end
 

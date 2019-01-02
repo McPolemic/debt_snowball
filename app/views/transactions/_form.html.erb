@@ -38,8 +38,8 @@
     </div>
 
     <div class="form-check form-check-inline">
-      <%= form.radio_button :charge_indicator, :charges, checked: charge?(@transaction.amount_cents), class: "form-check-input" %>
-      <%= form.label :charge_indicator, value: :charges, class: "form-check-label" %>
+      <%= form.radio_button :charge_indicator, :charge, checked: charge?(@transaction.amount_cents), class: "form-check-input" %>
+      <%= form.label :charge_indicator, value: :charge, class: "form-check-label" %>
     </div>
   </fieldset>
 
