@@ -28,7 +28,7 @@
 
   <fieldset class="form-group">
     <%= form.label :amount %>
-    <%= form.text_field :amount, value: money(@transaction.amount_cents), class: "form-control" %>
+    <%= form.text_field :amount, value: money(@transaction.amount_cents.abs), class: "form-control" %>
   </fieldset>
 
   <fieldset class="form-group">
