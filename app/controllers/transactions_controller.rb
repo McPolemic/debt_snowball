@@ -48,19 +48,28 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    raw_params = params.require(:transaction).permit(:account_id, :date, :description, :amount, :charge_indicator)
-    amount_text = raw_params.delete(:amount)
+    raw_params = params.require(:transaction).permit(:account_id, :date, :description, :amount, :charge_indicator, :new_balance)
+
+    new_balance = parse_amount_cents raw_params.delete(:new_balance)
     charge_indicator = raw_params.delete(:charge_indicator)
+    amount_cents = parse_amount_cents raw_params.delete(:amount)
 
-    amount_cents = parse_amount_cents(amount_text)
+    amount_cents = if new_balance
+                     account_id = raw_params[:account_id]
+                     current_balance = Account.find(account_id).current_balance
 
-    # Amount owed is a positive number. Therefore, payments are negative
-    # numbers. Additional charges are positive, adding to the balance.
-    amount_cents = case charge_indicator
-                   when "payment"
-                     -amount_cents
-                   when "charge"
-                     amount_cents
+                     new_balance - current_balance
+                   else
+                     # Amount owed is a positive number. Therefore, payments are negative
+                     # numbers. Additional charges are positive, adding to the balance.
+                     case charge_indicator
+                     when "payment"
+                       -amount_cents
+                     when "charge"
+                       amount_cents
+                     else
+                       raise "Unknown state: #{charge_indicator.inspect}"
+                     end
                    end
 
     raw_params.merge(amount_cents: amount_cents)

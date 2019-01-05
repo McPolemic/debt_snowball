@@ -29,20 +29,20 @@
   <fieldset class="form-group">
     <div>
       <%= form.label :amount %>
-      <%= form.number_field :amount, step: 0.01, class: "form-control" %>
+      <%= form.text_field :amount, class: "form-control" %>
     </div>
   </fieldset>
 
   <fieldset class="form-group">
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      <%= form.label(:amount_type, "Payment", class: "btn btn-secondary #{"active" if payment?(@transaction.amount_cents)}") do %>
+      <%= form.label(:charge_indicator, "Payment", class: "btn btn-secondary #{"active" if payment?(@transaction.amount_cents)}") do %>
         Payment
-        <%= form.radio_button :amount_type, :payment, checked: payment?(@transaction.amount_cents) %>
+        <%= form.radio_button :charge_indicator, :payment, checked: payment?(@transaction.amount_cents) %>
       <% end %>
 
-      <%= form.label(:amount_type, "Charge", class: "btn btn-secondary #{"active" if charge?(@transaction.amount_cents)}") do %>
+      <%= form.label(:charge_indicator, "Charge", class: "btn btn-secondary #{"active" if charge?(@transaction.amount_cents)}") do %>
         Charge
-        <%= form.radio_button :amount_type, :charge, checked: charge?(@transaction.amount_cents) %>
+        <%= form.radio_button :charge_indicator, :charge, checked: charge?(@transaction.amount_cents) %>
       <% end %>
     </div>
   </fieldset>
@@ -50,7 +50,7 @@
   <fieldset class="form-group">
     <div>
       <%= form.label :new_balance %>
-      <%= form.number_field :new_balance, step: 0.01, class: "form-control" %>
+      <%= form.text_field :new_balance, class: "form-control" %>
     </div>
   </fieldset>
 
