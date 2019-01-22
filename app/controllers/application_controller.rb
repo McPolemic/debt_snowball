@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   def parse_amount_cents(amount_text)
+    return nil if amount_text.nil?
+
     amount = amount_text.gsub(/[$,]/, '').to_f
 
     # Convert to cents
