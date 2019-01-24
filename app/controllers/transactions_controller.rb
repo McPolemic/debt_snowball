@@ -54,7 +54,7 @@ class TransactionsController < ApplicationController
     charge_indicator = raw_params.delete(:charge_indicator)
     amount_cents = parse_amount_cents raw_params.delete(:amount)
 
-    amount_cents = if new_balance
+    amount_cents = if new_balance.present?
                      account_id = raw_params[:account_id]
                      current_balance = Account.find(account_id).current_balance
 

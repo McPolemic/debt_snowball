@@ -2,6 +2,8 @@ require 'test_helper'
 
 class TransactionsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    snowball = snowballs(:one)
+    @account = Account.create!(snowball: snowball)
     @transaction = transactions(:transaction_one)
   end
 
@@ -10,20 +12,49 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create transaction" do
+  test "setting a new balance creates a transaction equivalent to the new balance" do
     transaction_params = {
-      account_id: @transaction.account_id,
-      amount: @transaction.amount_cents,
-      charge_indicator: "payment",
-      date: @transaction.date,
-      description: @transaction.description
+      account_id: @account.id,
+      new_balance: "$15,000",
+      date: Date.today.iso8601,
+      description: "Setting new balance"
     }
 
-    assert_difference('Transaction.count') do
-      post transactions_url, params: { transaction: transaction_params }
-    end
+    post transactions_url, params: { transaction: transaction_params }
 
-    assert_redirected_to account_url(@transaction.account)
+    transaction = Transaction.last
+
+    assert_equal transaction.account.current_balance, 15000_00
+    assert_redirected_to account_url(@account)
+  end
+
+  test "should create transaction with a charge" do
+    transaction_params = {
+      account_id: @transaction.account_id,
+      amount: "$10",
+      charge_indicator: "charge",
+      date: @transaction.date,
+      description: "Sample charge"
+    }
+
+    post transactions_url, params: { transaction: transaction_params }
+
+    assert_equal Transaction.last.amount_cents, 10_00
+  end
+
+  test "should create transaction with a payment" do
+    transaction_params = {
+      account_id: @transaction.account_id,
+      amount: "$15",
+      new_balance: "",
+      charge_indicator: "payment",
+      date: @transaction.date,
+      description: "Sample payment"
+    }
+
+    post transactions_url, params: { transaction: transaction_params }
+
+    assert_equal Transaction.last.amount_cents, -15_00
   end
 
   test "should get edit" do
